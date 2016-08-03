@@ -71,7 +71,20 @@
  			
  			$("#submit").click(function(){
  				alert("hello")
+
+ 				
+
+
+
+
+
+//
+//
+ 					$.get( "http://webservices.amazon.com/onca/xml?Service=AWSECommerceService&AWSAccessKeyId=AKIAIOWFZ4KTTJAKNLFQ&AssociateTag=q0d9b-20&  Operation=ItemSearch&Keywords=the%20hunger%20games&SearchIndex=Books&Timestamp=[YYYY-MM-DDThh:mm:ssZ]&Signature=[Request Signature]", function( data ) {
+  								console.log(data);
+						});
  			});
+
  		 	
  		</script>
 	</body>
