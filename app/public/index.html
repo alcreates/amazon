@@ -17,104 +17,119 @@
 </head>
 
 <body>
-    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th data-field="ASIN">ASIN</th>
-                        <th data-field="Title">Title</th>
-                        <th data-field="Price">Price</th>
-                    </tr>
-                </thead>
-                <tbody id="dbOrders">
-                </tbody>
-            </table>
+    <div class="container-fluid">
+        <div class="row">
+            
+                <nav class="navbar navbar-default" style= "background-color:#232f3e; height:80px">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="#">
+                                <img alt="Brand" src="https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-underground-app-us-white.png" width="90" height="50">
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+           
         </div>
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <h4>search amazon</h4>
-            <input type="" name="">
-            <button id="submit" class="btn btn-primary">Submit</button>
-            <div>
-                <table class="table table-inverse">
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                <table class="table table-hover">
+                    <h2 style="color:#6aa21b; font-size:15px; font-style: italic;">Quantum Database</h2>
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th data-field="ASIN">ASIN</th>
                             <th data-field="Title">Title</th>
                             <th data-field="Price">Price</th>
                         </tr>
                     </thead>
-                    <tbody id="searchTable">
+                    <tbody id="dbOrders">
                     </tbody>
                 </table>
             </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <input style="margin: 10px; width:300px" type="" name="" placeholder="search amazon">
+                <button id="submit" class="btn btn-primary" style="background-color:#febd69;">Submit</button>
+                <div>
+                    <table class="table table-inverse">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th data-field="ASIN">ASIN</th>
+                                <th data-field="Title">Title</th>
+                                <th data-field="Price">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody id="searchTable">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Bootstrap JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script>
-    var currentURL = window.location.origin;
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Bootstrap JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script>
+        var currentURL = window.location.origin;
 
-    $.get(currentURL + '/api/orderList', function(data) {
-       
-        for (var i = 0; i < data.length; i++) {
-            $("#dbOrders").append("<tr><td>" + data[i].ASIN + "</td> <td>" + data[i].Title + "</td> <td>" + data[i].Price + "</td></tr>");
-        }
-    });
+        $.get(currentURL + '/api/orderList', function(data) {
 
-    $("#submit").click(function() {
+            for (var i = 0; i < data.length; i++) {
+                $("#dbOrders").append("<tr><td>" + data[i].ASIN + "</td> <td>" + data[i].Title + "</td> <td>" + data[i].Price + "</td></tr>");
+            }
+        });
 
-        var newOrder = {
-            new_order: $("input").val()
-        }
+        $("#submit").click(function() {
 
-        $.post(currentURL + "/search", newOrder).done(function(data) {
-                // $('#searchTable').empty();
-               alert('recieved');
+            var newOrder = {
+                new_order: $("input").val()
+            }
+
+            $.post(currentURL + "/search", newOrder).done(function(data) {
+                $('#searchTable').empty();
+
                 console.log(data);
-                // for (var i = 0; i < data.length; i++) {
-                //     var num = i + 1
-                //     $('#searchTable').append('<tr><th>' + num + '</th><td data-type="ASIN"> ' + data[i].ASIN + ' </td><td>' + data[i].ItemAttributes[0].Title + '</td><td>' + data[i].OfferSummary[0].LowestNewPrice[0].FormattedPrice[0] + '</td><td><button id="select" data-id="' + data[i].ASIN + '"data-title="' + data[i].ItemAttributes[0].Title + '" data-price="' + data[i].OfferSummary[0].LowestNewPrice[0].FormattedPrice[0] + '"type="button" class="btn btn-primary">select</button></td></tr>');
+                for (var i = 0; i < data.length; i++) {
+                    var num = i + 1
+                    $('#searchTable').append('<tr><th>' + num + '</th><td data-type="ASIN"> ' + data[i].ASIN + ' </td><td>' + data[i].ItemAttributes[0].Title + '</td><td>' + data[i].OfferSummary[0].LowestNewPrice[0].FormattedPrice[0] + '</td><td><button id="select" data-id="' + data[i].ASIN + '"data-title="' + data[i].ItemAttributes[0].Title + '" data-price="' + data[i].OfferSummary[0].LowestNewPrice[0].FormattedPrice[0] + '"type="button" class="btn btn-primary">select</button></td></tr>');
 
 
-                // }
+                }
 
             })
 
 
 
 
-    });
+        });
 
 
-    $(document).on('click', '#select', function() {
-        // needs to be added to database and populated in amazon orders. 
-        //alert($(this).attr('data-id'));
-        //console.log($(this).attr('data-price'));
-        //console.log($(this).attr('data-title'));
-        var ASIN = $(this).attr('data-id');
-        var title = $(this).attr('data-title');
-        var price = $(this).attr('data-price');
+        $(document).on('click', '#select', function() {
+            // needs to be added to database and populated in amazon orders. 
+            //alert($(this).attr('data-id'));
+            //console.log($(this).attr('data-price'));
+            //console.log($(this).attr('data-title'));
+            var ASIN = $(this).attr('data-id');
+            var title = $(this).attr('data-title');
+            var price = $(this).attr('data-price');
 
-        var newOrder = {
-            ASIN: ASIN,
-            Title: title,
-            Price: price
-        }
+            var newOrder = {
+                ASIN: ASIN,
+                Title: title,
+                Price: price
+            }
 
-        $.post(currentURL + "/api/new", newOrder).done(function(data) {
-            $("#dbOrders").append("<tr><td>" + ASIN + "</td> <td>" + title + "</td> <td>" + price + "</td></tr>");
-            //location.reload();
+            $.post(currentURL + "/api/new", newOrder).done(function(data) {
+                $("#dbOrders").append("<tr><td>" + ASIN + "</td> <td>" + title + "</td> <td>" + price + "</td></tr>");
+                //location.reload();
 
-        })
+            })
 
 
-    });
-    </script>
+        });
+        </script>
+    </div>
 </body>
 
 </html>
