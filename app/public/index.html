@@ -11,25 +11,23 @@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
-			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-		<![endif]-->
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
 </head>
 
 <body>
     <div class="container-fluid">
         <div class="row">
-            
-                <nav class="navbar navbar-default" style= "background-color:#232f3e; height:80px">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <a class="navbar-brand" href="#">
-                                <img alt="Brand" src="https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-underground-app-us-white.png" width="90" height="50">
-                            </a>
-                        </div>
+            <nav class="navbar navbar-default" style="background-color:#232f3e; height:80px">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">
+                            <img alt="Brand" src="https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-underground-app-us-white.png" width="90" height="50">
+                        </a>
                     </div>
-                </nav>
-           
+                </div>
+            </nav>
         </div>
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
@@ -72,14 +70,15 @@
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script>
         var currentURL = window.location.origin;
-
+        //makes call to server to populate items in database
         $.get(currentURL + '/api/orderList', function(data) {
 
             for (var i = 0; i < data.length; i++) {
-                $("#dbOrders").append("<tr><td>" + data[i].ASIN + "</td> <td>" + data[i].Title + "</td> <td>" + data[i].Price + "</td></tr>");
+                $("#dbOrders").append("<tr><td>" + data[i].ASIN + "</td> <td>" + data[i].Title + "</td> <td>" + 
+                    data[i].Price + "</td></tr>");
             }
         });
-
+        //takes search keywords and sends them to server to be processed
         $("#submit").click(function() {
 
             var newOrder = {
@@ -90,6 +89,7 @@
                 $('#searchTable').empty();
 
                 console.log(data);
+                //takes results and adds them to database list
                 for (var i = 0; i < data.length; i++) {
                     var num = i + 1
                     $('#searchTable').append('<tr><th>' + num + '</th><td data-type="ASIN"> ' + data[i].ASIN + ' </td><td>' + data[i].ItemAttributes[0].Title + '</td><td>' + data[i].OfferSummary[0].LowestNewPrice[0].FormattedPrice[0] + '</td><td><button style="background-color:#febd69;"id="select" data-id="' + data[i].ASIN + '"data-title="' + data[i].ItemAttributes[0].Title + '" data-price="' + data[i].OfferSummary[0].LowestNewPrice[0].FormattedPrice[0] + '"type="button" class="btn btn-primary">select</button></td></tr>');
@@ -104,7 +104,7 @@
 
         });
 
-
+        //takes selected items and adds them to database and lists them on webpage.
         $(document).on('click', '#select', function() {
             // needs to be added to database and populated in amazon orders. 
             //alert($(this).attr('data-id'));
