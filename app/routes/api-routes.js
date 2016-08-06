@@ -8,12 +8,12 @@ var client = amazon.createClient({
     awsSecret: "DL6rUpqfXpMuQEVmiGGYgudKa0ePlbaR8OX4OjHB",
     awsTag: "q0d9b-20"
 });
-//var Burgers	= require("../model/burgers.js"); // Pulls out the Character Model
+
 
 // Routes
 // =============================================================
 module.exports = function(app) {
-
+    //takes searched keywords - uses amazon api and sends results back to client
     app.post('/search', function(req, res) {
         console.log("lajdflkjsaldfjsdlfj" + req.body.new_order);
        var newSearch = req.body.new_order
@@ -28,7 +28,7 @@ module.exports = function(app) {
 
     });
 
-    // Search for Specific Character (or all characters) then provides JSON
+    //gets a list of what is in data base 
     app.get('/api/orderList', function(req, res) {
         console.log("received request");
 
@@ -42,7 +42,7 @@ module.exports = function(app) {
 
     });
 
-    // If a user sends data to add a new character...
+    // Creates a new item in database
     app.post('/api/new', function(req, res) {
 
         // Take the request...
@@ -59,23 +59,6 @@ module.exports = function(app) {
 
     });
 
-    app.post('/api/update', function(req, res) {
-        console.log(req)
-        Burgers.update(
-                //set value to be updated
-                {
-                    devoured: 1
-                },
-                // where clause/criteria
-                {
-                    where: {
-                        id: req.body.id
-                    }
-                }
-            )
-            .then(function() {
-                res.redirect('/');
-            })
-    });
+   
 
 }
