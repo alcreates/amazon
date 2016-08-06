@@ -72,7 +72,7 @@
         var currentURL = window.location.origin;
         //makes call to server to populate items in database
         $.get(currentURL + '/api/orderList', function(data) {
-
+            console.log(data)
             for (var i = 0; i < data.length; i++) {
                 $("#dbOrders").append("<tr><td>" + data[i].ASIN + "</td> <td>" + data[i].Title + "</td> <td>" + 
                     data[i].Price + "</td></tr>");
@@ -108,12 +108,12 @@
         $(document).on('click', '#select', function() {
             // needs to be added to database and populated in amazon orders. 
             //alert($(this).attr('data-id'));
-            //console.log($(this).attr('data-price'));
+            
             //console.log($(this).attr('data-title'));
             var ASIN = $(this).attr('data-id');
             var title = $(this).attr('data-title');
             var price = $(this).attr('data-price');
-
+            console.log(price);
             var newOrder = {
                 ASIN: ASIN,
                 Title: title,

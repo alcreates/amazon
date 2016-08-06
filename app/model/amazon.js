@@ -21,7 +21,7 @@ var Orders = sequelize.define("orders", {
 		
 	},
 	Price : {
-		type: Sequelize.INTEGER,
+		type: Sequelize.STRING,
 	},
 });
 

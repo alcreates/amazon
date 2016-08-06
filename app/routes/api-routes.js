@@ -47,12 +47,12 @@ module.exports = function(app) {
 
         // Take the request...
         var order = req.body;
-
+        console.log(order.Price)
         // Create a routeName 
 
 
         // Then add the character to the database using sequelize
-       Orders.create({ ASIN : order.ASIN, Title: order.Title, Price: order.Price })
+       Orders.create({ ASIN : order.ASIN, Title: order.Title, Price: order.Price, })
            .then(function() {
                 res.redirect('/');
          })
